@@ -75,20 +75,12 @@ const SignInPage = () => {
     setIsLoading(true);
 
     try {
-      const response = await authApi.login({
-        email: formData.email,
-        password: formData.password
-      });
-      
-      if (response.data && response.data.token) {
-        setShowSuccess(true);
-        login(response.data.token);
-        setTimeout(() => {
-          navigate('/dashboard');
-        }, 1500);
-      } else {
-        throw new Error('Token not received');
-      }
+      const response = await authApi.login(formData.email, formData.password);
+      setShowSuccess(true);
+      login(response.accessToken);
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 1500);
     } catch (err) {
       console.error('Login error:', err);
       setError(err.response?.data?.message || 'Invalid username or password');
