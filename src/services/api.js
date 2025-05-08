@@ -7,16 +7,16 @@ const api = axios.create({
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
-  },
-  withCredentials: true
+    'Accept': 'application/json',
+  }
 });
 
+// Request interceptor for API calls
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
-      config.headers['Access-Control-Allow-Origin'] = '*';
     }
     return config;
   },
@@ -25,20 +25,45 @@ api.interceptors.request.use(
   }
 );
 
+// Response interceptor for API calls
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response?.status === 403 || error.response?.status === 401) {
       localStorage.removeItem('token');
-      window.location.href = '/signin';
+      window.location.href = '/';
     }
     return Promise.reject(error);
   }
 );
 
 export const authApi = {
-  login: (credentials) => api.post('/auth/signin', credentials),
-  register: (userData) => api.post('/auth/signup', userData),
+  login: async (credentials) => {
+    try {
+      const response = await api.post('/auth/signin', credentials);
+      if (response.data.accessToken) {
+        localStorage.setItem('token', response.data.accessToken);
+      }
+      return response.data;
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
+    }
+  },
+  
+  register: async (userData) => {
+    try {
+      const response = await api.post('/auth/signup', userData);
+      if (response.data.accessToken) {
+        localStorage.setItem('token', response.data.accessToken);
+      }
+      return response.data;
+    } catch (error) {
+      console.error('Registration error:', error);
+      throw error;
+    }
+  }
 };
 
 export const userApi = {
@@ -50,33 +75,11 @@ export const userApi = {
 export const taskApi = {
   getAllTasks: () => api.get('/tasks'),
   getTaskById: (id) => api.get(`/tasks/${id}`),
-  createTask: (taskData) => {
-    const finalTaskData = {
-      ...taskData,
-      vital: Boolean(taskData.isVital)
-    };
-    console.log('API sending task data:', finalTaskData);
-    return api.post('/tasks', finalTaskData);
-  },
-  updateTask: (id, taskData) => {
-    const finalTaskData = {
-      ...taskData,
-      vital: Boolean(taskData.isVital)
-    };
-    return api.put(`/tasks/${id}`, finalTaskData);
-  },
+  createTask: (taskData) => api.post('/tasks', taskData),
+  updateTask: (id, taskData) => api.put(`/tasks/${id}`, taskData),
   deleteTask: (id) => api.delete(`/tasks/${id}`),
   getTasksByCategory: (categoryId) => api.get(`/tasks/category/${categoryId}`),
-  getVitalTasks: () => {
-    console.log('Fetching vital tasks from API');
-    return api.get('/tasks/vital').then(response => {
-      console.log('Vital tasks response:', response.data);
-      return response;
-    }).catch(error => {
-      console.error('Error fetching vital tasks:', error);
-      throw error;
-    });
-  },
+  getVitalTasks: () => api.get('/tasks/vital'),
 };
 
 export const categoryApi = {
