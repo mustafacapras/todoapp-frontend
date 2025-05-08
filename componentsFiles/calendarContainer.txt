@@ -1,0 +1,115 @@
+/* Calendar Container */
+.calendar-container {
+  width: 300px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  color: #333333;
+}
+
+/* Calendar Header */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.calendar-header h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.calendar-header .close-button {
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #ff5858;
+  cursor: pointer;
+}
+
+.calendar-header .close-button:hover {
+  opacity: 0.8;
+}
+
+/* Date Input */
+.date-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #eaeaea;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Calendar Navigation */
+.calendar-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.calendar-navigation button {
+  background-color: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: #333333;
+  cursor: pointer;
+}
+
+.calendar-navigation button:hover {
+  color: #007bff;
+}
+
+.calendar-navigation span {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Calendar Grid */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  text-align: center;
+}
+
+.calendar-grid .day {
+  font-size: 0.875rem;
+  font-weight: bold;
+  color: #666666;
+}
+
+.calendar-grid .date {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.calendar-grid .date:hover {
+  background-color: #f0f0f0;
+}
+
+.calendar-grid .date.selected {
+  background-color: #007bff;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.calendar-grid .date.disabled {
+  color: #cccccc;
+  pointer-events: none;
+}

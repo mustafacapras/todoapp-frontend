@@ -1,0 +1,87 @@
+/*  Sign In Page Components  */
+
+/* Header Component */
+.form-header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Input Field Component */
+.input-field {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.input-icon {
+  margin-right: 10px;
+  color: var(--color-border);
+}
+
+/* Checkbox Component */
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+/* Button Component */
+.button-primary {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.button-primary:hover {
+  opacity: 0.9;
+}
+
+/* Google Login Button */
+.google-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  color: var(--color-text);
+  background-color: var(--color-background);
+}
+
+.google-login img {
+  width: 20px;
+  height: 20px;
+}
+
+.google-login:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Form Container Component */
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--color-background);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
